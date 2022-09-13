@@ -35,5 +35,18 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<Map<String,String>>(resp,HttpStatus.BAD_REQUEST);
 	}
 	
-
+	//handler to UserHandlingException exp
+		@ExceptionHandler(UserHandlingException.class)
+		public ResponseEntity<ApiResponse> userHandlingExceptionHandler(UserHandlingException ex){
+			String message = ex.getMessage();
+			ApiResponse apiResponse = new ApiResponse(message);
+			return new ResponseEntity<ApiResponse>(apiResponse,HttpStatus.BAD_REQUEST);
+		}
+		
+		//for all remaining excs : add global exc handling method
+		@ExceptionHandler(Exception.class)
+		public ResponseEntity<?> handleException(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage()));
+		}
+		
 }
