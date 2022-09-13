@@ -17,12 +17,16 @@ public interface IUserService {
      //login user
      UserLoginResponse login(UserLoginRequest userDto);
      
-     List<User> getAllUsers();
+     //get all users
+     List<UserDto> getAllUsers();
      
+     //update user details
      UserDto updateUser(UserDto user,Long userId);
      
+     //get user by id
      UserDto getUserById(Long userId);
      
+     //delete user by id
      ApiResponse deleteUser(Long userId);
      
 }

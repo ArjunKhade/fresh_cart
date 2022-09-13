@@ -1,9 +1,6 @@
 package com.app.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -19,18 +16,18 @@ import lombok.ToString;
 @NoArgsConstructor
 public class User extends BaseEntity {
 	
-	@Column(name = "user_name")
 	private String name;
 	
+	@Column(length = 20, unique = true, nullable = false)
 	private String email;
 	
 	private String password;
 	
-	private long phone;
+	private String phone;
 	
 	private String city;
 	
-	private int pin;
+	private String pin;
 	
 	private String address;
 	
