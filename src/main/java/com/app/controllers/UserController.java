@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.ApiResponse;
 import com.app.dto.UserDto;
 import com.app.dto.UserLoginRequest;
 import com.app.dto.UserSignupRequest;
 import com.app.entities.User;
 import com.app.service.IUserService;
+import com.app.service.UserServiceImpl;
 
 @RestController
 @RequestMapping("/users")
@@ -34,8 +36,11 @@ public class UserController {
 	//register new user 
 	@PostMapping("/signup")
 	public ResponseEntity<?>registerUser(@Valid @RequestBody  UserSignupRequest request){
-		return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerNewUser(request));
-		
+		 boolean findUserByEmail = userService.findUserByEmail(request.getEmail());
+		 if(!findUserByEmail) {
+		  return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerNewUser(request));
+		}
+		 return new ResponseEntity<ApiResponse>(new ApiResponse("Duplicate User Entry Email Id Already Exist!!!!"),HttpStatus.BAD_REQUEST);
 	}
 	
 	//authenticate user and login

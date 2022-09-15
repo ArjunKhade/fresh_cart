@@ -1,7 +1,10 @@
 package com.app.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +20,10 @@ import com.app.dto.UserLoginResponse;
 import com.app.dto.UserSignupRequest;
 import com.app.entities.User;
 import com.app.exceptions.ResourceNotFoundException;
+import com.app.exceptions.UserHandlingException;
 
 @Service
+@Transactional
 public class UserServiceImpl implements IUserService {
 	
 	@Autowired
@@ -95,6 +100,22 @@ public class UserServiceImpl implements IUserService {
 		User user = modelMapper.map(userDto, User.class);
 		return user;
 	}
+	
+	
+
+	@Override
+	public boolean findUserByEmail(String email) {
+		Optional<User> user = userRepo.findByEmail(email);
+//		User usr = userRepo.findByEmail(email)
+//				   .orElseThrow(()-> new UserHandlingException("Duplicate User Entry: "+email+" Already Exist"));
+		   if(user.isPresent()){
+			return true;
+		}
+		 return false;
+	}
+
+	
+
 	
 
 }

@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-public class UserSignupRequest extends BaseDto {
+public class SellerSignupRequest extends BaseDto {
 	
 	//TODO:add validation rules 
 	@NotBlank(message = "first name is required")
@@ -48,5 +50,13 @@ public class UserSignupRequest extends BaseDto {
 	
 	@NotBlank(message = "address is required")
 	private String address;
+	
+	@NotBlank(message = "gstin is required")
+	 private String gstin;
+	
+	//@NotBlank(message = "revenue is required")
+	@JsonIgnore
+	 private double revenue;
+	
 	
 }

@@ -29,4 +29,8 @@ public interface IUserService {
      //delete user by id
      ApiResponse deleteUser(Long userId);
      
+   //duplicate user entry
+     boolean findUserByEmail(String email);
+     
+    
 }
