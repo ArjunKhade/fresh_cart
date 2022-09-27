@@ -5,10 +5,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.AccessLevel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +34,7 @@ public class Seller  extends BaseEntity  {
 	@Column(length = 30, unique = true)
 	private String email;
 
-	@Column(length = 20)
+	@Column(length = 400)
 	private String password;
 
 	@Column(length = 20)
@@ -51,6 +54,10 @@ public class Seller  extends BaseEntity  {
 	
 	@Column(name="revenue")
 	 private double revenue;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	 private User user;
 	
 	@OneToMany(mappedBy = "seller" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private List<Product> productList;

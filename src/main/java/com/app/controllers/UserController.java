@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +22,7 @@ import com.app.dto.ApiResponse;
 import com.app.dto.UserDto;
 import com.app.dto.UserLoginRequest;
 import com.app.dto.UserSignupRequest;
-import com.app.entities.User;
 import com.app.service.IUserService;
-import com.app.service.UserServiceImpl;
 
 @RestController
 @RequestMapping("/users")
@@ -56,6 +55,7 @@ public class UserController {
 	}
 	
 	//delete user by id
+	
 	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<?>deleteUser(@PathVariable Long userId){
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.deleteUser(userId));
@@ -71,6 +71,7 @@ public class UserController {
 	public ResponseEntity<?> getUserById(@PathVariable Long userId){
 		return ResponseEntity.ok(userService.getUserById(userId));
 	}
+	
 	
 	
 }

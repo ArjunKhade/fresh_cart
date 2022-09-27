@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class UserSignupRequest extends BaseDto {
 	
-	//TODO:add validation rules 
+	
 	@NotBlank(message = "first name is required")
 	@Size(min = 4,message = "Username must be min of 4 characters")
 	private String name;
@@ -28,7 +28,7 @@ public class UserSignupRequest extends BaseDto {
 	@Email(message = "invalid email format")
 	private String email;
 	
-	@Column(length = 20)
+	@Column(length = 400)
 	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Password must be min 3 chars and max 20 must contain 1 digit,1 alfabet,1 special symbol")
 	private String password;
 	

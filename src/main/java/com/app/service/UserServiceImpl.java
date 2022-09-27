@@ -8,37 +8,72 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.app.dao.SellerRepository;
 import com.app.dao.UserRepository;
 import com.app.dto.ApiResponse;
 import com.app.dto.UserDto;
 import com.app.dto.UserLoginRequest;
 import com.app.dto.UserLoginResponse;
 import com.app.dto.UserSignupRequest;
+import com.app.entities.Seller;
 import com.app.entities.User;
 import com.app.exceptions.ResourceNotFoundException;
-import com.app.exceptions.UserHandlingException;
 
 @Service
-@Transactional
+@Transactional//we wnt to start trn at service layer and end with service layer
 public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private UserRepository userRepo;
 	
 	@Autowired
+	private SellerRepository sellerRepo;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 
+//	@Autowired
+//	private PasswordEncoder encoder;
 	
 	@Override
 	public ApiResponse registerNewUser(UserSignupRequest userDto) {
+		
 		 User transientUser = modelMapper.map(userDto, User.class);
 		 User persistentUser = userRepo.save(transientUser);
+
+		  if(userDto.getRole().equals("seller")) {
+			  Seller seller = new Seller();
+			   seller.setAddress(userDto.getAddress());
+			   seller.setCity(userDto.getCity());
+			   seller.setEmail(userDto.getEmail());
+			   seller.setPassword(userDto.getPassword());
+			   seller.setName(userDto.getName());
+			   seller.setPhone(userDto.getPhone());
+			   seller.setPin(userDto.getPin());
+               seller.setId(persistentUser.getId());
+			   seller.setGstin("");
+			   seller.setRevenue(0);
+			   seller.setUser(transientUser);
+			   sellerRepo.save(seller);
+		  }
+	
+		    
 		return new ApiResponse("User registered with ID: "+persistentUser.getId()+" Successfully!");
 	}
+	
+	//register user with password encoding in db
+//	@Override
+//	public ApiResponse registerNewUserWithPasswordEncoding(UserSignupRequest userDto) {
+//		System.out.println(userDto);
+//		User transientUser = modelMapper.map(userDto, User.class);
+//		 transientUser.setPassword(encoder.encode(userDto.getPassword()));
+//		 System.out.println(transientUser);
+//		 User persistentUser = userRepo.save(transientUser);
+//		return  new ApiResponse("User registered with ID: "+persistentUser.getId()+" Successfully!");
+//	}
 
 	@Override
 	public UserLoginResponse login(UserLoginRequest request) {
@@ -69,6 +104,7 @@ public class UserServiceImpl implements IUserService {
 		 user.setPassword(userDto.getPassword());
 		 user.setPhone(userDto.getPhone());
 		 user.setPin(userDto.getPin());
+		 user.setRole(userDto.getRole());
 		 
 		 User updatedUser  = userRepo.save(user);
 		 
@@ -81,6 +117,13 @@ public class UserServiceImpl implements IUserService {
 			  .orElseThrow(() -> new ResourceNotFoundException("User with Id "+userId+" Not found"));
 	 
 		return userToDto(user);
+	}
+	
+	@Override
+	public User findUserById(Long userId) {
+	  User user = userRepo.findById(userId)
+			  .orElseThrow(() -> new ResourceNotFoundException("User with Id "+userId+" Not found"));
+		return user;
 	}
 
 	@Override
@@ -113,6 +156,8 @@ public class UserServiceImpl implements IUserService {
 		}
 		 return false;
 	}
+
+	
 
 	
 

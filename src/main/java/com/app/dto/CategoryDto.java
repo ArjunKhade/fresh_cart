@@ -3,11 +3,7 @@ package com.app.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.app.entities.Category;
-import com.app.entities.Product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

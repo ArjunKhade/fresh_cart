@@ -6,10 +6,9 @@ import java.io.InputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,17 +21,13 @@ import com.app.utils.IStorageService;
 @Controller
 public class FileControllerImpl {
 	
-	Logger logger = LoggerFactory.getLogger(FileControllerImpl.class);
-	
 	@Autowired
 	private IStorageService storageService;
 
-	@RequestMapping(value="/{fileName}", produces = "image/*")
+	@RequestMapping(value="/store/{fileName}", produces = { MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE,
+			MediaType.IMAGE_PNG_VALUE }) 
 	public void download(@PathVariable("fileName") String fileName, HttpServletResponse resp) {
 		
-		logger.trace("File Controller Implementation : download method Accessed");
-		
-		System.out.println("Loading file: " + fileName);
 		Resource resource = storageService.load(fileName);
 		if(resource != null) {
 			try(InputStream in = resource.getInputStream()) {

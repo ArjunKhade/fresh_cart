@@ -23,13 +23,10 @@ public class ProductDto extends BaseDto {
 
 	private double productDiscount;
 
-	private double productRating;
+	private int productRating;
 
 	private MultipartFile productImage;
-
-//	private String seller;
-//
-//	private String category;
+	
 
 }
 

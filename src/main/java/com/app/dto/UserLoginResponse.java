@@ -11,8 +11,11 @@ import lombok.ToString;
 @NoArgsConstructor
 public class UserLoginResponse {
 	
+	private long id;
+	
     private String name;
     
-    private String email;
+    private String role;
+    
    
 }

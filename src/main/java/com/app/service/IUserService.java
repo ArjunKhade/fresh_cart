@@ -14,6 +14,9 @@ public interface IUserService {
 	//create a new user
      ApiResponse  registerNewUser(UserSignupRequest userDto);
      
+   //create a new user with password encoding
+    // ApiResponse  registerNewUserWithPasswordEncoding(UserSignupRequest userDto);
+     
      //login user
      UserLoginResponse login(UserLoginRequest userDto);
      
@@ -31,6 +34,8 @@ public interface IUserService {
      
    //duplicate user entry
      boolean findUserByEmail(String email);
+
+	User findUserById(Long userId);
      
     
 }

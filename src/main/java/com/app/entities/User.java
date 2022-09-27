@@ -1,19 +1,16 @@
 package com.app.entities;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +20,7 @@ import lombok.ToString;
 @Table(name = "users")
 @Getter
 @Setter
-//@ToString(exclude = { "cart" ,"orders"})
+@ToString(exclude = { "cart" ,"orders"})
 @NoArgsConstructor
 public class User extends BaseEntity {
 	
@@ -34,7 +31,7 @@ public class User extends BaseEntity {
 	@Column(length = 30, unique = true)
 	private String email;
 	
-	@Column(length = 20)
+	@Column(length = 400)
 	private String password;
 	
 	@Column(length = 20)
@@ -58,9 +55,14 @@ public class User extends BaseEntity {
 	@JoinColumn(name = "cart_id")
 	private Cart cart;
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "user",fetch =FetchType.LAZY,cascade = CascadeType.ALL )
-//	private List<Order>orders;
+	@JsonIgnore
+	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+	private Seller seller;
+	
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user",fetch =FetchType.LAZY,cascade = CascadeType.ALL )
+	private List<OrderEntity>orders;
 	
 	
 }
