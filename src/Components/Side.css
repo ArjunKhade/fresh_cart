@@ -1,0 +1,48 @@
+.sidebar {
+  background: rgba#282c34;
+  color: white;
+  height: 1000px;
+  width: 200px;
+  padding-top: 20px;
+  box-shadow: 10px 10px 5px rgb(137, 141, 143);
+  box-shadow: 10px 10px 5px lightblue;
+  font-family: "Gill Sans", sans-serif;
+  background: #73ad21;
+  border-radius: 0px 50px 30px;
+  width: 250px;
+}
+
+.sidebarlist {
+  height: auto;
+  width: 100%;
+}
+
+.sidebarlist .row {
+  width: 100%;
+
+  margin: 5px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-items: left;
+  justify-content: left;
+}
+.sidebarlist .row:hover {
+  cursor: pointer;
+  backface-visibility: hidden;
+}
+
+.dashboard_title {
+  /* padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 10px; */
+}
+
+.row #icon {
+  flex: 30%;
+  display: grid;
+  place-items: left;
+}
+.row #title {
+  flex: 70%;
+}

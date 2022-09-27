@@ -1,0 +1,33 @@
+.search_bar {
+  flex-grow: 1;
+  display: flex;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 600px;
+  border: none;
+  font-size: 20x;
+  margin-top: 10px;
+}
+.nav-bar-bg {
+  box-shadow: 0px 10px 5px rgb(130, 141, 143);
+  /* box-shadow: 10px 10px 5px lightblue; */
+  font-family: "Gill Sans", sans-serif;
+  border-radius: 5px;
+  background: #73ad21;
+  padding: 20px;
+  height: 150px;
+}
+
+.Header-searchIconContainer {
+  width: 40px;
+  background-color: #febd69;
+  color: black;
+  margin-top: 10px;
+  justify-content: center;
+  height: 40px;
+}
+
+.drop_down {
+  margin-right: 5px;
+}

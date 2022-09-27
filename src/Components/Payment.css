@@ -1,0 +1,29 @@
+.payment_cantainer > h1 {
+  text-align: center;
+  padding: 10px;
+  font-weight: 400;
+  background-color: rgb(234, 237, 237);
+  border-bottom: 1px solid lightgray;
+}
+.payment_cantainer > h1 a {
+  text-decoration: none;
+}
+
+.payment > h1 {
+  background-color: white;
+}
+
+.payment_section {
+  display: flex;
+  padding: 20px;
+  margin: 0 20px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.payment_title {
+  flex: 0.2;
+}
+.payment_address,
+.payment_item {
+  flex: 0.5;
+}
